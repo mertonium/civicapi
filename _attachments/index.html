@@ -2,12 +2,17 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  	<link href="fileuploader.css" rel="stylesheet" type="text/css">	
-  	<link href="fileuploader.css" rel="stylesheet" type="text/css">	
-  	<link href="stylesheet.css" rel="stylesheet" type="text/css">	
-  	<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+    <link href="fileuploader.css" rel="stylesheet" type="text/css">	
+    <link href="fileuploader.css" rel="stylesheet" type="text/css">	
+    <link href="stylesheet.css" rel="stylesheet" type="text/css">	
+    <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
     <style>    	
-		body {font-size:13px; font-family:arial, sans-serif; width:700px; margin:100px auto;}
+    body {
+      font-size:13px;
+      font-family:arial, sans-serif;
+      width:700px;
+      margin:100px auto;
+    }
     </style>	
 </head>
 <body>	
@@ -37,20 +42,21 @@
         
         function getShortName(scraper) {
           // http://scraperwiki.com/scrapers/open-food-data/
-          if (scraper.substr(-1, 1) === "/") {
-            scraper = scraper.substr(0, scraper.length -1);
+          if ( scraper.substr( -1, 1 ) === "/") {
+            scraper = scraper.substr( 0, scraper.length -1 );
           }
-          return scraper.split("/")[-1]
+          return scraper.split( "/" )[-1]
         }
         
         function verifyScraper(scraper) {
-          var okay = false;
-          var url = "http://api.scraperwiki.com/api/1.0/datastore/getdata?limit=1&name="
-          var shortName = getShortName(scraper);
+          var okay = false,
+              url = "http://api.scraperwiki.com/api/1.0/datastore/getdata?limit=1&name=",
+              shortName = getShortName(scraper);
+
           $.ajax({
             url: url + shortName,
             dataType: 'jsonp',
-            success: function(data) {
+            success: function( data ) {
               function upload() {
                 $.ajax({
                   url: "/civicapi",
@@ -59,13 +65,13 @@
                   data: JSON.stringify({
                     "url": shortName
                   }),
-                  success: function(response){
-                     console.log(response);
+                  success: function( response ){
+                     console.log( response );
                    }
                 })
               }
               
-              if ("status" in data[0]) {
+              if ( "status" in data[0] ) {
                 if (data[0].status !== "Does not exist" )  {
                   upload();
                 }
@@ -76,10 +82,10 @@
           });
         }
         
-        $('#scraperForm').submit(function(e){
+        $( '#scraperForm' ).submit( function( e ){
           e.preventDefault();
-          var val = $('#url').val();
-          verifyScraper(val);
+          var val = $( '#url' ).val();
+          verifyScraper( val );
         }) 
       })
     </script>    
