@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
     <link href="fileuploader.css" rel="stylesheet" type="text/css">	
     <link href="fileuploader.css" rel="stylesheet" type="text/css">	
     <link href="stylesheet.css" rel="stylesheet" type="text/css">	
@@ -29,10 +29,52 @@
     <fieldset>
       <legend>Scraperwiki</legend>
       <span class="instructions">Please enter your ScraperWiki scraper URL (e.g. http://scraperwiki.com/scrapers/open-food-data/)</span>
-      <hr class="space"/>
-      <input placeholder="URL" type="text" name="scraper" id="url" size="55" maxlength="255" class="text" />
+      <hr class="space">
+      <input placeholder="URL" type="text" name="scraper" id="url" size="55" maxlength="255" class="text" >
       <select name="set"></select>        
-      <input type="submit" name="submit" value="Submit" id="submit" class="button" /></li>
+      <input type="submit" name="submit" value="Submit" id="submit" class="button" ></li>
+    </fieldset>
+  </form>
+
+  <!--
+    No JavaScript written for this drag/drop yet
+  -->
+  <form>
+    <fieldset>
+      <legend>Drag 'n Drop data files</legend>
+      <hr class="space">
+      <hr class="space">
+      <h2 class="center">Drag Here</h2>
+      <hr class="space">
+      <hr class="space">
+      <hr class="space">
+      <hr class="space">
+    </fieldset>
+  </form>
+
+  <!--
+    No JavaScript written for this form
+  -->
+  <form>
+    <fieldset>
+      <legend>Single Entry</legend>
+      <span class="instructions">Enter a single piece of datum into the system</span>
+      <hr class="space">
+      <input placeholder="Start" type="text" name="start" size="55" maxlength="255" class="text" > <br>
+      <input placeholder="End" type="text" name="end" size="55" maxlength="255" class="text" > <br>
+      <input placeholder="geometry" type="text" name="scraper" size="55" maxlength="255" class="text" > <br>
+      <input placeholder="URL" type="text" name="scraper" size="55" maxlength="255" class="text" > <br>
+
+      <label>Category:</label><select name="set"></select> <br>
+
+      <label>Properties:</label>
+      <ul class="listless">
+        <li><input placeholder="color" type="text" size="35" maxlength="255" class="text" ></li>
+        <li><input placeholder="title" type="text" size="35" maxlength="255" class="text" ></li>
+        <li><input placeholder="description" type="text" size="35" maxlength="255" class="text" ></li>
+      </ul>
+          
+      <input type="submit" name="submit" value="Submit" id="submit" class="button" ></li>
     </fieldset>
   </form>
 

@@ -33,6 +33,12 @@ legend {
 
 .listless {
   list-style-type:none;
+  margin: 0;
+  padding: 0;
+}
+
+.center {
+  text-align: center;
 }
 
 .space {
@@ -43,7 +49,9 @@ a {
   color: #009;
 }
 input[type=text] {
+  outline: none;
   padding: 10px;
+  margin: 10px 0;
   border: 3px solid #ccc;
   -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
@@ -52,6 +60,7 @@ input[type=text] {
 }
 
 select {
+  margin: 10px 0;
   border: 1px solid #ccc;
   height: 24px;
   margin: 0px 10px;
@@ -63,6 +72,7 @@ select {
 input[type=submit], button {
   font-size: 11px;
   padding: 4px 10px;
+  margin: 10px 0;
   color: #999;
   -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
