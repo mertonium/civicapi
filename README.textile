@@ -16,7 +16,7 @@ h2. Project Goals
 h2. Project Feature Road Map
 
 * Develop interface for importing data
-** Scraperwiki integraTION
+** Scraperwiki integration
 ** Bulk bulk item upload entry
 ** Single item entry
 * Query User Interface for authoring data views
