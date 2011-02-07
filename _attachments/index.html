@@ -24,91 +24,91 @@
   
   <hr class="space">
   
-  <h2>Submit a ScraperWiki Dataset</h2>
-  <div class="search-box" id="search-box">
-    <form id="scraperForm">
-      <ul class="form" id="search-form">
-        <div class="instructions">Please enter your ScraperWiki scraper URL (e.g. http://scraperwiki.com/scrapers/open-food-data/)</div>
-        <div class="fields">
-          <li class="left">
-              <label for="title">
-                  URL:
-              </label>
-          </li>
-          <li class="right">
-            <input type="text" name="title" id="url" size="45" maxlength="255" class="text" />
-          </li>
-        </div>
-          <li class="right"><input type="button" name="submit" value="Submit" id="submit" class="button" /></li>
-      </ul>
-    </form>
-    <div class="clear-fix">&nbsp;</div>
-  </div>	
-    
-    <script>        
-      $(function(){
-        
-        // Setup code to initialize home view
-        // Should be moved elsewhere and be initialized by some kind of routing system
-        $.getJSON('http://127.0.0.1:5984/_all_dbs', function( dbs ){
-          _.each( dbs, function( db ) {
-            
-            $( '<li>' , {
-              html: '<a href="/' + db + '/_all_docs">' + db + '</a>'
-            })
-            .appendTo('.dbs')
-            
-          });
-        })
-        
-        function getShortName(scraper) {
-          // http://scraperwiki.com/scrapers/open-food-data/
-          if ( scraper.substr( -1, 1 ) === "/") {
-            scraper = scraper.substr( 0, scraper.length -1 );
-          }
-          return scraper.split( "/" )[-1]
-        }
-        
-        function verifyScraper(scraper) {
-          var okay = false,
-              url = "http://api.scraperwiki.com/api/1.0/datastore/getdata?limit=1&name=",
-              shortName = getShortName(scraper);
+  <h2>Add Data to Set</h2>
+  <form>
+    <fieldset>
+      <legend>Scraperwiki</legend>
+      <span class="instructions">Please enter your ScraperWiki scraper URL (e.g. http://scraperwiki.com/scrapers/open-food-data/)</span>
+      <hr class="space"/>
+      <input placeholder="URL" type="text" name="scraper" id="url" size="55" maxlength="255" class="text" />
+      <select name="set"></select>        
+      <input type="submit" name="submit" value="Submit" id="submit" class="button" /></li>
+    </fieldset>
+  </form>
 
-          $.ajax({
-            url: url + shortName,
-            dataType: 'jsonp',
-            success: function( data ) {
-              function upload() {
-                $.ajax({
-                  url: "/civicapi",
-                  type: "POST",
-                  contentType: 'application/json',
-                  data: JSON.stringify({
-                    "url": shortName
-                  }),
-                  success: function( response ){
-                     console.log( response );
-                   }
-                })
-              }
-              
-              if ( "status" in data[0] ) {
-                if (data[0].status !== "Does not exist" )  {
-                  upload();
-                }
-              } else {
-                upload()
-              }
-            }
-          });
-        }
-        
-        $( '#scraperForm' ).submit( function( e ){
-          e.preventDefault();
-          var val = $( '#url' ).val();
-          verifyScraper( val );
-        }) 
+  <script>
+    $(function(){
+      
+      // Setup code to initialize home view
+      // Should be moved elsewhere and be initialized by some kind of routing system
+      $.getJSON('http://127.0.0.1:5984/_all_dbs', function( dbs ){
+        _.each( dbs, function( db ) {
+
+          $( '<li>' , {
+            html: '<a href="/' + db + '/_all_docs">' + db + '</a>'
+          })
+          .appendTo('.dbs')
+
+          $( '<option>' , {
+            value : '/' + db + '/_all_docs">',
+            html : db
+          })
+          .appendTo('[name=set]')
+          
+        });
       })
-    </script>    
+      
+      
+      // Utility function for getting the scrapper wiki short name
+      // http://scraperwiki.com/scrapers/open-food-data/
+      function getShortName( scraper ) {
+        if ( scraper.substr( -1, 1 ) === "/") {
+          scraper = scraper.substr( 0, scraper.length -1 );
+        }
+        return scraper.split( "/" )[-1]
+      }
+      
+      // Log out the srapper response to the console
+      function verifyScraper( scraper ) {
+        var okay = false,
+            url = "http://api.scraperwiki.com/api/1.0/datastore/getdata?limit=1&name=",
+            shortName = getShortName( scraper );
+  
+        $.ajax({
+          url: url + shortName,
+          dataType: 'jsonp',
+          success: function( data ) {
+            function upload() {
+              $.ajax({
+                url: "/civicapi",
+                type: "POST",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                  "url": shortName
+                }),
+                success: function( response ){
+                   console.log( response );
+                 }
+              })
+            }
+            
+            if ( "status" in data[0] ) {
+              if ( data[0].status !== "Does not exist" )  {
+                upload();
+              }
+            } else {
+              upload()
+            }
+          }
+        });
+      }
+      
+      $( '#scraperForm' ).submit( function( e ){
+        e.preventDefault();
+        var val = $( '#url' ).val();
+        verifyScraper( val );
+      }) 
+    })
+  </script>    
 </body>
 </html>
