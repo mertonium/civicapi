@@ -5,7 +5,8 @@ CivicAPI is a reference implementation of the Open Civic Data Document and Categ
 h2. Project Goals
 
 * Implement the Open Civic Data Document Specification
-* Implement the Open Civic Data Category Specification
+* Implement the Open Civic Data Categories Specification
+* Implement the Open Civic Data Properties Specification
 * Create an easily consumable data resource for developers interested in utilizing civic data
 * Host civic data for free, for any regional government open data initiative
 * Allow users to edit and contribute data

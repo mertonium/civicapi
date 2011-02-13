@@ -7,24 +7,23 @@
     <link href="stylesheet.css" rel="stylesheet" type="text/css">	
     <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="underscore.js"></script>
+    <script type="text/javascript" src="quicksilver.js"></script>
+    <script type="text/javascript" src="jquery.livesearch.js"></script>
+    <script type="text/javascript" src="underscore.js"></script>
     <style>    	
-    body {
-      font-size:13px;
-      font-family:arial, sans-serif;
-      width:700px;
-      margin:100px auto;
-    }
     </style>	
 </head>
-<body>	
+<body>
   <h1 class="title">Civic API</h1>
-  <h2>Existing data sets:</h2>
-  <ul class="dbs">
-  </ul>
-  
+  <fieldset>
+      <legend><input class="refine" placeholder="Existing data sets" type="text" name="start" size="55" maxlength="255" class="text" ></legend>
+      <ul class="dbs">
+      </ul>
+  </fieldset>
+
   <hr class="space">
-  
-  <h2>Add Data to Set</h2>
+
+  <h2>Add Data To A Set</h2>
   <form>
     <fieldset>
       <legend>Scraperwiki</legend>
@@ -39,16 +38,10 @@
   <!--
     No JavaScript written for this drag/drop yet
   -->
-  <form>
+  <form id="bulkdata">
     <fieldset>
       <legend>Drag 'n Drop data files</legend>
-      <hr class="space">
-      <hr class="space">
       <h2 class="center">Drag Here</h2>
-      <hr class="space">
-      <hr class="space">
-      <hr class="space">
-      <hr class="space">
     </fieldset>
   </form>
 
@@ -81,10 +74,37 @@
   <script>
     $(function(){
       
+      // Bind File Drag 'n Drop
+      // jQuery creates it's own event object, and it doesn't have a
+      // dataTransfer property yet. This adds dataTransfer to the event object.
+      // Thanks to @tbranyen for figuring this out!
+      $.event.props.push('dataTransfer');
+      
+      var bulkdata = $('#bulkdata')
+        .bind( 'dragenter dragover', false)
+        .bind( 'drop', function( e ) {
+          e.stopPropagation();
+          e.preventDefault();
+          
+          $.each( e.dataTransfer.files, function(index, file){
+            var fileReader = new FileReader();
+                fileReader.onload = (function(file) {
+                   return function(e) { 
+                     bulkdata.children('fieldset').html(
+                       '<textarea class="bulkdataresult">' + file.fileName +  e.target.result + '</textarea>'
+                    ) 
+                   }; 
+                })(file);
+            fileReader.readAsText(file);
+          });
+          
+        });
+      
       // Setup code to initialize home view
       // Should be moved elsewhere and be initialized by some kind of routing system
       $.getJSON('http://127.0.0.1:5984/_all_dbs', function( dbs ){
         _.each( dbs, function( db ) {
+          var db = db.replace('_', ' ');
 
           $( '<li>' , {
             html: '<a href="/' + db + '/_all_docs">' + db + '</a>'
@@ -98,9 +118,10 @@
           .appendTo('[name=set]')
           
         });
+        
+        $('.refine').liveUpdate('.dbs');
       })
-      
-      
+
       // Utility function for getting the scrapper wiki short name
       // http://scraperwiki.com/scrapers/open-food-data/
       function getShortName( scraper ) {
