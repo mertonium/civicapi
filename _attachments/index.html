@@ -3,9 +3,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
     <link href="fileuploader.css" rel="stylesheet" type="text/css">	
-    <link href="fileuploader.css" rel="stylesheet" type="text/css">	
+    <link href="Aristo/jquery-ui-1.8.7.custom.css" rel="stylesheet" type="text/css">	
     <link href="stylesheet.css" rel="stylesheet" type="text/css">	
     <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
     <script type="text/javascript" src="underscore.js"></script>
     <script type="text/javascript" src="quicksilver.js"></script>
     <script type="text/javascript" src="jquery.livesearch.js"></script>
@@ -71,6 +72,8 @@
     </fieldset>
   </form>
 
+  <div id="dialog" style="display:none"></div>
+
   <script>
     $(function(){
       
@@ -85,21 +88,52 @@
         .bind( 'drop', function( e ) {
           e.stopPropagation();
           e.preventDefault();
-          
+
           $.each( e.dataTransfer.files, function(index, file){
             var fileReader = new FileReader();
                 fileReader.onload = (function(file) {
                    return function(e) { 
                      bulkdata.children('fieldset').html(
                        '<textarea class="bulkdataresult">' + file.fileName +  e.target.result + '</textarea>'
-                    ) 
+                     ) 
+                     createRefinementUI( e.target.result )
                    }; 
                 })(file);
             fileReader.readAsText(file);
           });
-          
+
         });
-      
+
+      // Define a CSV parser
+      var createRefinementUI = function( csv ) {
+        var _rows = csv.split('\n'),
+            _header = _rows[0].split(','),
+            _data = _rows.slice( 1 ),
+            propsSelect = $('[name=set]').clone().get(0),
+            ocdPropertiesUL = '<ul class="ocdproperties"><li></li><li>start</li><li>end</li><li>geometry</li></ul>',
+            userPropertiesUL = $('<ul>', {
+              className: 'userProperties',
+            });
+
+        _.each( _header , function( iterator, property ){
+          userPropertiesUL.append('<li>' + iterator + '</li>')
+        });
+
+        $('#dialog')
+          .html( userPropertiesUL )
+          .prepend( ocdPropertiesUL )
+          .dialog({
+            title: 'Map your fields',
+            modal: true,
+            width: 600,
+            create: function(){
+              $('.ocdproperties').children().first().html( propsSelect )
+              userPropertiesUL.children().draggable()
+            }
+          })
+
+      };
+
       // Setup code to initialize home view
       // Should be moved elsewhere and be initialized by some kind of routing system
       $.getJSON('http://127.0.0.1:5984/_all_dbs', function( dbs ){

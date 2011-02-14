@@ -88,3 +88,13 @@ textarea {
   padding: 20px;
   height: 200px;
 }
+
+#dialog select {
+  width: 100px;
+}
+
+#dialog ul {
+  float: left;
+  width: 200px;
+  margin-right: 10px;
+}
