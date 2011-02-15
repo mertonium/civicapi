@@ -105,17 +105,23 @@
         });
 
       // Define a CSV parser
-      var createRefinementUI = function( csv ) {
-        var _rows = csv.split('\n'),
-            _header = _rows[0].split(','),
-            _data = _rows.slice( 1 ),
-            propsSelect = $('[name=set]').clone().get(0),
-            ocdPropertiesUL = '<ul class="ocdproperties"><li></li><li>start</li><li>end</li><li>geometry</li></ul>',
-            userPropertiesUL = $('<ul>', {
-              className: 'userProperties',
-            });
+      var createRefinementUI = function( csvstring ) {
+        
+        var _rows = csv.rows( csvstring ),
+          _header = csv.header( csvstring ),
+          _data = csv.data( _rows ),
+          _headerproperties = csv.properties( _header );
 
-        _.each( _header , function( iterator, property ){
+          propsSelect = $('[name=set]').clone().get(0),
+          
+          // Don't look at me :|
+          ocdPropertiesUL = '<ul class="ocdproperties"><li></li><li>start</li><li>end</li><li>geometry</li></ul>',
+          userPropertiesUL = $('<ul>', {
+            className: 'userProperties',
+          });
+
+
+        _.each( _headerproperties , function( iterator, property ){
           userPropertiesUL.append('<li>' + iterator + '</li>')
         });
 
