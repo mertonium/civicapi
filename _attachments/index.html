@@ -10,7 +10,7 @@
     <script type="text/javascript" src="underscore.js"></script>
     <script type="text/javascript" src="quicksilver.js"></script>
     <script type="text/javascript" src="jquery.livesearch.js"></script>
-    <script type="text/javascript" src="underscore.js"></script>
+    <script type="text/javascript" src="csvlib/csv.js"></script>
     <style>    	
     </style>	
 </head>
@@ -136,7 +136,7 @@
 
       // Setup code to initialize home view
       // Should be moved elsewhere and be initialized by some kind of routing system
-      $.getJSON('http://127.0.0.1:5984/_all_dbs', function( dbs ){
+      $.getJSON('/_all_dbs', function( dbs ){
         _.each( dbs, function( db ) {
           var db = db.replace('_', ' ');
 
