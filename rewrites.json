@@ -46,8 +46,22 @@
     "from": "/datasets"
   },
   {
-    "to": "../../../:db/_design/geo/_spatiallist/geojson/points",
+    "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
     "from": "/:db"
+  },
+  {
+    "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
+    "from": "/:db/all",
+    "query": {
+      "bbox": "-180,-90,180,90"
+    }
+  },
+  {
+    "to": "../../../:db/_design/geo/_spatiallist/kml/pointsFull",
+    "from": "/:db/kml",
+    "query": {
+      "bbox": "-180,-90,180,90"
+    }
   },
   {
     "to": "../../../:db/_design/push/_list/feed/recent",
