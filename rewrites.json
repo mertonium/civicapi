@@ -47,10 +47,6 @@
   },
   {
     "to": "../../../:db/_design/geo/_spatiallist/geojson/points",
-    "from": "/:db.json"
-  },
-  {
-    "to": "../../../:db",
     "from": "/:db"
   },
   {
