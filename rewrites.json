@@ -42,6 +42,10 @@
     "from": ""
   },
   {
+    "to": "pages/new.html",
+    "from": "/new"
+  },
+  {
     "to": "../../../civicapi2/_design/civicapi/_list/datasets/all",
     "from": "/datasets"
   },
