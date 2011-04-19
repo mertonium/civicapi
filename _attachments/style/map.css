@@ -24,6 +24,12 @@ path, circle {
   stroke: #000;
 }
 
+.loading {
+  background-image: url("../images/ajax-loader.gif");
+  background-position: 5px right;
+  background-repeat: no-repeat;
+}
+
 .map_container {
   position: absolute;
   top: 0px;

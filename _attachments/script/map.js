@@ -39,6 +39,14 @@ $(function(){
     return sick_neon_colors[Math.floor(Math.random()*sick_neon_colors.length)];
   };
   
+  function showLoader() {
+    $('.map_header').first().addClass('loading');  
+  }
+  
+  function hideLoader() {
+    $('.map_header').first().removeClass('loading');  
+  }
+
   function load(e){
     var cssObj = randColor = randomColor();
     for (var i = 0; i < e.features.length; i++) {
@@ -95,7 +103,7 @@ $(function(){
 
   var showDataset = function( dataset ) {
     var bbox = getBB();
-
+    showLoader();
     fetchFeatures( bbox, dataset, function( data ){
       console.log(JSON.stringify(data));
       var feature = po.geoJson()
@@ -105,7 +113,7 @@ $(function(){
       featuresCache[dataset] = feature;
 
       map.add( feature );
-
+      hideLoader();
     })
   }
 
