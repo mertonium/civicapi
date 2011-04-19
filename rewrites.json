@@ -9,15 +9,11 @@
     "from": "favicon.ico"
   },
   {
-    "to": "pages/*",
-    "from": "pages/*"
-  },
-  {
     "to": "style/*",
     "from": "style/*"
   },
   {
-    "to": "pages/map.html",
+    "to": "map.html",
     "from": "map"
   },
   {
@@ -33,12 +29,8 @@
     "from": "images/*"
   },
   {
-    "to": "pages/index.html",
+    "to": "index.html",
     "from": ""
-  },
-  {
-    "to": "pages/new.html",
-    "from": "/new"
   },
   {
     "to": "../../../civicapi/_design/civicapi/_list/datasets/all",
