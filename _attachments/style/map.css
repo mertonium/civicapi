@@ -3,6 +3,18 @@ body {
   background-color: #f4f4f4;
   font-family: georgia;
 }
+
+h2 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.loading {
+  background-image: url("../images/ajax-loader.gif");
+  background-position: 5px right;
+  background-repeat: no-repeat;
+}
 .topbar {
   background-color: #252525;
   border-top: 1px solid #313131;
@@ -31,8 +43,15 @@ svg.map {
   position: absolute;
   right: 0px;
   top: 10px;
-  width: 18%;
+  width: 230px;
   padding: 0px 5px 90px 5px;
+}
+
+.map_header {
+  position:absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 200px;
 }
 
 .date {
@@ -55,7 +74,13 @@ button {
 }
 
 a {
-  color: #d5f3ff;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #111111;
+  text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
 }
 
 .blue {
