@@ -1,5 +1,16 @@
 var map, po, currentData, geoJson;
 
+// Should probably abstract out the couch url and the db prefix and the version and the starting map center.
+var config = {
+	'couchUrl':'http://phlapi.com:5984',
+	'dbPrefix':'phl_',
+	'version':'v1',
+	'rewrite':'/api/_design/civicapi/_rewrite',
+	'mapCenterLat':39.9522783,
+	'mapCenterLng':-75.1636505,
+	'mapStartZoom':14
+};
+
 $(function(){  
   po = org.polymaps;
   geoJson = po.geoJson();
@@ -8,8 +19,8 @@ $(function(){
 
   map = po.map()
       .container($('.map_container')[0].appendChild(po.svg("svg")))
-      .center({lat: 42.3584308, lon: -71.0597732})
-      .zoom(17)
+      .center({lat: config.mapCenterLat, lon: config.mapCenterLng})
+      .zoom(config.mapStartZoom)
       .add(po.interact())
       .add(po.hash());
 
@@ -43,12 +54,12 @@ $(function(){
           fill: 'none',
           stroke: randColor,
           strokeWidth:2,
-          opacity: .9 
+          opacity: .8 
         }
       } else {
         cssObj = {
           fill: randColor,
-          opacity: .9 
+          opacity: .2 
         }
       }
 
@@ -60,7 +71,7 @@ $(function(){
   function fetchFeatures(bbox, dataset, callback) {
 
     $.ajax({
-      url: "http://civicapi.com/" + dataset,
+      url: config.couchUrl + config.rewrite + "/" + config.version + "/" + dataset,
       dataType: 'jsonp',
       data: {
         "bbox": bbox
@@ -73,6 +84,7 @@ $(function(){
   var showDataset = function( dataset ) {
     var bbox = getBB();
 
+	$('.map_header').first().toggleClass('loading');
     fetchFeatures( bbox, dataset, function( data ){
 
       var feature = po.geoJson()
@@ -82,6 +94,7 @@ $(function(){
       featuresCache[dataset] = feature;
 
       map.add( feature );
+	  $('.map_header').first().toggleClass('loading');
 
     })
   }
@@ -96,7 +109,7 @@ $(function(){
 
   // Get all sets
   $.ajax({ 
-    url: "http://civicapi.com/datasets",
+    url: config.couchUrl + config.rewrite + "/datasets",
     dataType: 'jsonp', 
     success: function(data){ 
       $.each(data.datasets, function( i, item ){
@@ -132,7 +145,7 @@ $(function(){
       });
     } else {
       var input = $(this)
-          dataSet = 'bos_' + input.parent().attr('class');
+          dataSet = config.dbPrefix + input.parent().attr('class');
 
       if( $(this).attr('checked') ) {
         showDataset( dataSet );
@@ -161,17 +174,17 @@ $(function(){
     $('#dialog ul').html("");
     $('[type=checkbox]').each(function(i, item){
       var input = $(this),
-          dataSet = 'bos_' + input.parent().attr('class');
+          dataSet = config.dbPrefix + input.parent().attr('class');
 
       if( $(this).attr('checked') ) {
-        $('#dialog ul').append( "<li><a href='http://civicapi.com/" + dataSet + "?" + $.param({"bbox": getBB()}) + "'>" + dataSet + "</a></li>" );
+        $('#dialog ul').append( "<li><a href='"+config.couchUrl + config.rewrite + "/"+config.version+"/" + dataSet + "?" + $.param({"bbox": getBB()}) + "'>" + dataSet + "</a></li>" );
       }
     });
     
     $('#dialog').dialog({
       modal: true,
       title: 'API Calls',
-      widht: 400
+      width: 400
     })
   })
   
