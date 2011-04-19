@@ -236,16 +236,16 @@
         		<div id="map"></div> 
             <div class='instructions highlight'> 
               <h3 class="title">Get objects in a <a href="http://www.opensearch.org/Specifications/OpenSearch/Extensions/Geo/1.0/Draft_1#The_.22box.22_parameter">bounding box</a>:</h3>
-              <div class="subtitle"><pre>civicapi.com/bos_fire_hydrants?bbox=-71.062520,42.358028,-71.059516,42.360089</pre></div>
+              <div class="subtitle"><pre>civicapi.com/v1/bos_fire_hydrants?bbox=-71.062520,42.358028,-71.059516,42.360089</pre></div>
               <h3 class="title">Get entire dataset:</h3>
-              <div class="subtitle"><pre>civicapi.com/bos_fire_hydrants/all</pre></div>
+              <div class="subtitle"><pre>civicapi.com/v1/bos_fire_hydrants/all</pre></div>
               <h3 class="title">Get entire dataset as <a href='http://en.wikipedia.org/wiki/Keyhole_Markup_Language'>KML</a>:</h3>
-              <div class="subtitle"><pre>civicapi.com/bos_fire_hydrants/kml</pre></div>
+              <div class="subtitle"><pre>civicapi.com/v1/bos_fire_hydrants/kml</pre></div>
               <h3 class="title">jQuery examples:</h3> 
               <div class='subtitle'>get objects in a bounding box:</div> 
               <pre> 
               <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> 
-                <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://civicapi.com/bos_fire_hydrants&quot;</span><span class="p">,</span> 
+                <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://civicapi.com/v1/bos_fire_hydrants&quot;</span><span class="p">,</span> 
                 <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span> 
                 <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> 
                   <span class="s2">&quot;bbox&quot;</span><span class="o">:</span><span class="s2">&quot;-71.062520,42.358028,-71.059516,42.360089&quot;</span> 
@@ -258,7 +258,7 @@
               <div class='subtitle'>get available datasets:</div> 
               <pre> 
               <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> 
-                <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://civicapi.com/datasets&quot;</span><span class="p">,</span> 
+                <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://civicapi.com/v1/datasets&quot;</span><span class="p">,</span> 
                 <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span> 
                 <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span> 
                   <span class="c1">// manipulate data</span> 

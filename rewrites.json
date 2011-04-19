@@ -1,13 +1,8 @@
 [
   {
-    "from": "xml",
-    "to": "_show/challenge",
-    "method": "GET"
-  },
-  {
-    "from":"xml",
-    "to": "_update/test",
-    "method": "POST"
+    "from": "",
+    "to": "_show/cors",
+    "method": "OPTIONS"
   },
   {
     "to": "favicon.ico",
@@ -46,30 +41,26 @@
     "from": "/new"
   },
   {
-    "to": "../../../civicapi2/_design/civicapi/_list/datasets/all",
-    "from": "/datasets"
+    "to": "../../../civicapi/_design/civicapi/_list/datasets/all",
+    "from": "/v1/datasets"
   },
   {
     "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
-    "from": "/:db"
+    "from": "/v1/:db"
   },
   {
     "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
-    "from": "/:db/all",
+    "from": "/v1/:db/all",
     "query": {
       "bbox": "-180,-90,180,90"
     }
   },
   {
     "to": "../../../:db/_design/geo/_spatiallist/kml/pointsFull",
-    "from": "/:db/kml",
+    "from": "/v1/:db/kml",
     "query": {
       "bbox": "-180,-90,180,90"
     }
-  },
-  {
-    "to": "../../../:db/_design/push/_list/feed/recent",
-    "from": "/v1/:db.rss"
   },
   {
     "to": "../../../:db/:id",
@@ -77,15 +68,10 @@
   },
   {
     "to": "../../",
-    "from": "/civicapi"
+    "from": "/api"
   },
   {
     "to": "../../*",
-    "from": "civicapi/*"
-  },
-  {
-    "to": "../../",
-    "from": "/scrapers",
-    "method": "POST"
+    "from": "api/*"
   }
 ]
