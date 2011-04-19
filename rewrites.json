@@ -1,29 +1,20 @@
 [
   {
-      "to": "_show/challenge",
-      "from": "xml",
-      "method": "GET"
-  },
-  {
-      "to": "_update/test",
-      "from": "xml",
-      "method": "POST"
+    "from": "",
+    "to": "_show/cors",
+    "method": "OPTIONS"
   },
   {
       "to": "favicon.ico",
       "from": "favicon.ico"
   },
   {
-      "to": "pages/*",
-      "from": "pages/*"
+    "to": "style/*",
+    "from": "style/*"
   },
   {
-      "to": "style/*",
-      "from": "style/*"
-  },
-  {
-      "to": "pages/map.html",
-      "from": "map"
+    "to": "map.html",
+    "from": "map"
   },
   {
       "to": "lib/*",
@@ -38,58 +29,41 @@
       "from": "images/*"
   },
   {
-      "to": "pages/index.html",
-      "from": ""
+    "to": "index.html",
+    "from": ""
   },
   {
-      "to": "pages/new.html",
-      "from": "/new"
+    "to": "../../../civicapi/_design/civicapi/_list/datasets/all",
+    "from": "/v1/datasets"
   },
   {
-      "to": "../../../api/_design/civicapi/_list/datasets/all",
-      "from": "/datasets"
+    "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
+    "from": "/v1/:db"
   },
   {
-      "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
-      "from": "/v1/:db"
+    "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
+    "from": "/v1/:db/all",
+    "query": {
+      "bbox": "-180,-90,180,90"
+    }
   },
   {
-      "to": "../../../:db/_design/geo/_spatiallist/geojson/pointsFull",
-      "from": "/v1/:db/all",
-      "query": {
-          "bbox": "-180,-90,180,90"
-      }
+    "to": "../../../:db/_design/geo/_spatiallist/kml/pointsFull",
+    "from": "/v1/:db/kml",
+    "query": {
+      "bbox": "-180,-90,180,90"
+    }
   },
   {
-      "to": "../../../:db/_design/geo/_spatiallist/kml/pointsFull",
-      "from": "/v1/:db/kml",
-      "query": {
-          "bbox": "-180,-90,180,90"
-      }
+    "to": "../../../:db/:id",
+    "from": "/v1/:db/:id"
   },
   {
-      "to": "../../../:db/_design/push/_list/feed/recent",
-      "from": "/v1/:db.rss"
+    "to": "../../",
+    "from": "/api"
   },
   {
-      "to": "../../../:db/:id",
-      "from": "/v1/:db/:id"
-  },
-  {
-      "to": "../../",
-      "from": "/civicapi"
-  },
-  {
-      "to": "../../*",
-      "from": "civicapi/*"
-  },
-  {
-      "to": "../../",
-      "from": "/scrapers",
-      "method": "POST"
-  },
-  {
-      "to": "../../../../_utils/*",
-      "from": "/_utils/*"
+    "to": "../../*",
+    "from": "api/*"
   }
 ]
