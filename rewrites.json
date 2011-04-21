@@ -33,7 +33,7 @@
     "from": ""
   },
   {
-    "to": "../../../civicapi/_design/civicapi/_list/datasets/all",
+    "to": "../../../api/_design/civicapi/_list/datasets/all",
     "from": "/v1/datasets"
   },
   {

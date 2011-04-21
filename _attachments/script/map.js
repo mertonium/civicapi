@@ -56,9 +56,14 @@ $(function(){
           fill: 'none',
           stroke: randColor,
           strokeWidth:2,
-          opacity: .8 
+          opacity: .9 
         }
-      } else {
+      } else if( feature.data.geometry.type == 'Point' ) {
+        cssObj = {
+          fill: randColor,
+          opacity: 1 
+        }
+	  } else {
         cssObj = {
           fill: randColor,
           opacity: .2 
@@ -105,7 +110,7 @@ $(function(){
     var bbox = getBB();
     showLoader();
     fetchFeatures( bbox, dataset, function( data ){
-      console.log(JSON.stringify(data));
+console.log(JSON.stringify(data));
       var feature = po.geoJson()
             .features( data.features )
             .on( "show", load );
@@ -124,7 +129,7 @@ $(function(){
   var getBB = function(){
     return map.extent()[0].lon + "," + map.extent()[0].lat + "," + map.extent()[1].lon + "," + map.extent()[1].lat;
   }
-   console.log(config.mapContainer)
+
   var onPointClick = function( event ) {
     
    var coor = event.data.geo.coordinates,
@@ -183,7 +188,7 @@ $(function(){
 
   // Get all sets
   $.ajax({ 
-    url: config.couchUrl + "/" + config.version + "/" + config.rewrite + "/datasets",
+    url: config.couchUrl + config.rewrite + "/" + config.version + "/datasets",
     dataType: 'jsonp', 
     success: function(data){ 
       $.each(data.datasets, function( i, item ){
