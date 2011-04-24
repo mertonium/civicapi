@@ -17,6 +17,10 @@
     "from": "map"
   },
   {
+    "to": "examples.html",
+    "from": "examples"
+  },
+  {
       "to": "lib/*",
       "from": "lib/*"
   },
