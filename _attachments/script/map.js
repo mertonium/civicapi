@@ -2,7 +2,7 @@ var map, po, currentData, geoJson;
 
 // Should probably abstract out the couch url and the db prefix and the version and the starting map center.
 var config = {
-	couchUrl:'http://phlapi.com:5984',
+	couchUrl:'http://phlapi.iriscouch.com:5984',
 	dbPrefix:'phl_',
 	version:'v1',
 	rewrite:'/api/_design/civicapi/_rewrite',
