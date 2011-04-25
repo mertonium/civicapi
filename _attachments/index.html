@@ -158,7 +158,6 @@
             success: function(data){ 
                 var datasets = data.datasets;
                 for(var i=0; i < datasets.length; i++) {
-console.log(datasets[i].name);
                     li = '<li class="dataset_li"><a href="/v1/phl_'+datasets[i].name+'/all">phl_'+datasets[i].name+'</a><br /><span>'+datasets[i].description+'</span></li>';
                     $('#dataset_ul').append($(li));
 //console.log(el);
