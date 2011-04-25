@@ -2,10 +2,10 @@ var map, po, currentData, geoJson;
 
 // Should probably abstract out the couch url and the db prefix and the version and the starting map center.
 var config = {
-	couchUrl:'http://phlapi.iriscouch.com:5984',
+	couchUrl:'http://phlapi.com:5984',
 	dbPrefix:'phl_',
 	version:'v1',
-	rewrite:'/api/_design/civicapi/_rewrite',
+	rewrite:'',
 	mapCenterLat:39.9522783,
 	mapCenterLng:-75.1636505,
 	mapStartZoom:14
@@ -110,7 +110,7 @@ $(function(){
     var bbox = getBB();
     showLoader();
     fetchFeatures( bbox, dataset, function( data ){
-console.log(JSON.stringify(data));
+//console.log(JSON.stringify(data));
       var feature = po.geoJson()
             .features( data.features )
             .on( "show", load );
